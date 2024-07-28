@@ -1,0 +1,41 @@
+	
+	body{
+		background-color:#f2f2f2;
+		width:1900;
+	}
+
+	.navbar {
+		display: flex;
+		justify-content: space-around;
+		background-color: #b6dad3;
+		padding: 10px 0;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+		font-weight: bold;
+		text-decoration: none;
+	}
+
+	.l-bar{
+		width:200px;
+		height:850px;
+		background-color: #b6dad3;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+		align-items: center;
+		float:left;
+		padding:10px;
+		overflow:hidden;
+	}
+		
+	.navbar >a{
+		color:white;
+		text-decoration: none;
+	}
+
+	.school > a{
+		font-weight: bold;
+		text-decoration: none;
+		color:white;
+	}
+	
+	.r-section{
+		float:left;
+	}
