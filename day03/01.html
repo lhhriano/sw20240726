@@ -1,12 +1,29 @@
 <!DOCTYPE html>
-<html>
-<head> 
-    <title>javaScript</title>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 
 <body>
-    <h1>GundoGundo</h1>
+    <h2>What Can JavaScript Do?</h2>
+
+    <p id="demo">JavaScript can change the style of an HTML element.</p>
+
+    <button type="button" onclick="
+        document.getElementById('demo').style.fontSize='35px'; 
+        document.body.bgColor='yellow'">
+        Click Me!
+    </button>
+
+    <button type="button" onclick=
+        'document.getElementById("demo").innerHTML = "JavaScript can change HTML content.";
+        document.body.bgColor=""'>
+        Reset
+    </button>
+
 </body>
 
 </html>
