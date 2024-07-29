@@ -5,19 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <script>
+        //페이지가 로드된 뒤 스크립트 실행
+        window.onload=function(){
+
+            //id값으로 태그 엘리먼트를 참조한다. 인터프린터 언어라 마지막에 스크립트 작성
+            //자바 스크립트에서는 모두 객체다.
+            var demo = document.getElementById('demo');
+            console.log(demo);
+            console.dir(window.document);
+            console.dir(window.document.body.childElementCount);
+
+            //엘리먼트를 변수로 받아온다.
+            var changeBtn = document.getElementById('changeBtn');
+            var resetBtn = document.getElementById('resetBtn');
+
+            //버튼이 클릭되면 아래 내용 실행
+            changeBtn.onclick = function(){
+                    demo.innerHTML = "Hello, JavaScript!";
+                    document.body.bgColor = "yellow";
+                }
+            resetBtn.onclick = function(){
+                demo.innerHTML = "JavaScript can change HTML content.";
+                document.body.bgColor = "";
+            }
+        }
+    </script>
 </head>
 
 <body>
-    <h2>What Can JavaScript Do?</h2>
+    메모:<br/><input type="text" id="memo">
+    <br/>
     <p id="demo">JavaScript can change the style of an HTML element.</p>
 
     <button type="button" id="changeBtn">change </button>
     <button type="button" id="resetBtn">Reset</button>
-    
-    <script>
-        //id값으로 태그 엘리먼트를 참조한다. 인터프린터 언어라 마지막에 스크립트 작성
-        var demo = document.getElementById('demo');
-        console.log(demo);
-    </script>
 </body>
 </html>
