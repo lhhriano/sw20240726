@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        window.onload=function(){
+            var memoText = document.getElementById('memoText');
+
+            var demoEl = document.querySelector('#demo');
+            var clickBtnEl = document.querySelector('#clickBtn');
+            var resetBtnEl = document.querySelector('#resetBtn');
+            
+            console.log(memoText,demo,clickBtn,resetBtn);
+
+            resetBtn.onclick = function(){
+                demoEl.innerHTML = "JavaScript can change HTML content.";
+            };
+
+            memoTxt.onkeyup = function(event){
+                if(event.key == 'Enter'){
+                    var inputText = document.getElementById('memoTxt').value;
+                    demoEl.innerHTML = inputText;
+                }
+            };
+        }
+    </script>
+</head>
+
+<body>
+    메모 : <input type="text" id="memoTxt" value="">
+    <p id="demo">JavaScript can change HTML content.</p>
+
+    <!-- 인터널 방식 적용 -->
+    <button type="button" id="clickBtn" class="btn" >Click</button>
+    <button type="button" id="resetBtn">Reset</button>
+</body>
+</html>
