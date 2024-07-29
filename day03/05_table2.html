@@ -40,7 +40,8 @@
 
             var handleEvent = function(event) {
                 // todoList에 객체를 추가 한다. push()
-                
+                todoList.push({seq: seqCnt, title: memoTxt.value, done: false});
+                seqCnt += 1; // 다음 항목의 시퀀스 번호 증가
                 drawList();
                 memoTxt.value = "";
                 memoTxt.focus();
