@@ -16,7 +16,7 @@
             console.log(memoText,demo,clickBtn,resetBtn);
 
             resetBtn.onclick = function(){
-                demoEl.innerHTML = "JavaScript can change HTML content.";
+                demoEl.innerHTML = "";
             };
 
             memoTxt.onkeyup = function(event){
@@ -33,7 +33,6 @@
     메모 : <input type="text" id="memoTxt" value="">
     <p id="demo">JavaScript can change HTML content.</p>
 
-    <!-- 인터널 방식 적용 -->
     <button type="button" id="clickBtn" class="btn" >Click</button>
     <button type="button" id="resetBtn">Reset</button>
 </body>
