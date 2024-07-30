@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ </head>
+
+ <body>
+    <h1>html 계산기 구현</h1>
+    <form action="">
+        <fieldset>
+            <legend>계산기</legend>
+            <input type="text" size="2" value="0" class="num1">
+            <select name="" id="oper">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+            </select>
+            <input type="text" size="4" value="0" class="num2">
+            <button class="ResultBtn">=</button>
+            
+            <input type="text" size="4" value="0" class="ResultArea">
+        </fieldset>
+    </form>
+
+    <script>
+        //getElementsByClassName()은 리턴형이 리스트(htmlCollection)형태이다.
+        var vnum1 = document.getElementsByClassName('num1')[0];
+        //querySelectorAll()은 css선택기를 그대로 사용.
+        var vnum2 = document.querySelectorAll('.num2')[0];
+        var resultBtn = document.querySelector(".ResultBtn");
+        var resultArea = document.querySelector(".ResultArea");
+        var oper = document.getElementById('oper');
+
+        resultBtn.addEventListener('click', function(event){
+            //form의 기본 기능을 중단한다.
+            event.preventDefault();
+
+            var n1 = parseFloat(vnum1.value);
+            var n2 = parseFloat(vnum2.value);
+            var operator = oper.value;
+            var result;
+
+            switch (operator) {
+                    case '+':
+                        result = n1 + n2;
+                        break;
+                    case '-':
+                        result = n1 - n2;
+                        break;
+                    case '*':
+                        result = n1 * n2;
+                        break;
+                    case '/':
+                        result = n1 / n2;
+                        break;
+                    default:
+                        result = 'Invalid operation';
+                }resultArea.value = result;
+        })
+    </script>
+
+ </body>
+ </html>
