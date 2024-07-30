@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <style>
+        td.modifyBox {
+            display: none;
+        }
+    </style>
+
+    <script>
+        var todoList = [
+            {seq:101, title:"여행하기", done:false},
+            {seq:102, title:"포트폴리오 만들기", done:true},
+            {seq:103, title:"팀 프로젝트 하기", done:false},
+            {seq:105, title:"저녁먹기", done:true},
+            {seq:104, title:"엄마 생일 선물 준비하기", done:false},
+        ];
+
+        var seqCnt = 106;
+
+        window.onload = function() {
+            var memoTxt = document.getElementById('memoTxt');
+            var demo = document.querySelector('#demo');
+            var clickBtn = document.querySelector('#clickBtn');
+            var saveBtn = document.querySelector('#saveBtn');
+            var resetBtn = document.querySelector('#resetBtn');
+
+            HTMLButtonElement.prototype.handleDelEvt = function (btn) {
+                var trElement = btn.parentElement.parentElement;
+                var targetSeq = trElement.dataset.seq;
+
+                var idx = todoList.findIndex(function(todo) {
+                    return targetSeq == todo.seq;
+                });
+
+                if (idx != -1) {
+                    todoList.splice(idx, 1);
+                    drawList();
+                }
+            }
+
+            HTMLButtonElement.prototype.editClickHandle = function(btn) {
+                var trElement = btn.parentElement.parentElement;
+                var targetSeq = trElement.dataset.seq;
+                var idx = todoList.findIndex(function(todo) {
+                    return targetSeq == todo.seq;
+                });
+
+                if (idx != -1) {
+                    var modifyBox = trElement.querySelector(".modifyBox");
+                    var titleBox = trElement.querySelector(".titleBox");
+
+                    modifyBox.style.display = "block";
+                    titleBox.style.display = "none";
+
+                    var modifyTxt = trElement.querySelector(".modifyTxt");
+                    modifyTxt.value = todoList[idx].title;
+
+                    trElement.querySelector(".modifyBtn").onclick = function(event) {
+                        modifyBox.style.display = "none";
+                        todoList[idx].title = modifyTxt.value;
+                        drawList();
+                    };
+                }
+            }
+
+            window.aaaa = function(element) {
+                var trElement = element.parentElement.parentElement;
+                var targetSeq = trElement.dataset.seq;
+
+                var idx = todoList.findIndex(function(todo) {
+                    return targetSeq == todo.seq;
+                });
+
+                if (idx != -1) {
+                    todoList[idx].done = !todoList[idx].done;
+                    drawList();
+                }
+            }
+
+            function drawList(list) {
+                let todoList = window.todoList;
+                if (list) {
+                    todoList = list;
+                }
+
+                demo.innerHTML = "";
+                todoList.forEach(function(todoObj) {
+                    demo.innerHTML += `<tr align="center" data-seq="${todoObj.seq}">
+                        <td><input type="checkbox" ${todoObj.done ? "checked" : ""} onchange="window.aaaa(this)"></td>
+                        <td class="titleBox" style="${todoObj.done ? "text-decoration:line-through" : ""}">${todoObj.title}</td>
+                        <td class="modifyBox">
+                            <input type="text" class="modifyTxt"> <button class="modifyBtn">수정완료</button>
+                        </td>
+                        <td><button onclick="editClickHandle(this)">수정</button></td>
+                        <td><button onClick="handleDelEvt(this)">삭제</button></td>
+                    </tr>`;
+                });
+            }
+
+            drawList();
+
+            var handleEvent = function(event) {
+                todoList.push({seq: seqCnt++, title: memoTxt.value, done: false});
+                drawList();
+                memoTxt.value = "";
+                memoTxt.focus();
+            }
+
+            clickBtn.addEventListener('click', handleEvent);
+
+            memoTxt.onkeyup = function(event) {
+                if (event.keyCode === 13) {
+                    handleEvent(event);
+                }
+            }
+
+            document.querySelector("input#searchTxt").onkeyup = function(event) {
+                console.log(event.target.value);
+                var title = event.target.value;
+                var newTodoList = [];
+
+                for (var i = 0; i < todoList.length; i++) {
+                    if (todoList[i].title.indexOf(title) != -1) {
+                        newTodoList.push(todoList[i]);
+                    }
+                }
+
+                if (newTodoList.length >= 1) {
+                    drawList(newTodoList);
+                }
+            }
+
+            // Save to localStorage
+            saveBtn.addEventListener('click', function() {
+                localStorage.setItem("todoList", JSON.stringify(todoList));
+                alert("Todo list saved!");
+            });
+
+            // Reset todo list
+            resetBtn.addEventListener('click', function() {
+                todoList = [];
+                drawList();
+            });
+        }
+
+        // Load from localStorage
+        var loadTodoList = JSON.parse(localStorage.getItem("todoList"));
+        if (loadTodoList) {
+            todoList = loadTodoList;
+            seqCnt = Math.max(...todoList.map(todo => todo.seq)) + 1;
+        }
+        console.log(loadTodoList);
+    </script>
+</head>
+
+<body>
+    <h1>Todo List</h1>
+
+    메모: <input type="text" id="memoTxt" value="안녕 세계"> 
+    <button type="button" id="clickBtn">Save</button>
+    <button type="button" id="resetBtn">Reset</button>
+    <button type="button" id="saveBtn">Save to LocalStorage</button>
+    <hr>
+
+    검색: <input type="text" id="searchTxt"> 
+    <hr>
+
+    <table width="550" border="1">
+        <thead>
+            <tr>
+                <th>확인</th>
+                <th>할일</th>
+                <th>수정</th>
+                <th>삭제</th>
+            </tr>
+        </thead>
+        <tbody id="demo">
+        </tbody>
+    </table>
+</body>
+</html>
