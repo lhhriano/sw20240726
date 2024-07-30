@@ -42,7 +42,7 @@
             font-weight: bold;
             color: red;
         }   
-
+/*----------------------------------------------------------------------*/
         div {
             border: 1px solid navy;
             padding: 5px;
@@ -67,7 +67,7 @@
         div.header div {
             height: 50px;
         }
-
+        /*middle안 3개의 div의 자식을 ()로 선택하여 크기 조절*/
         div.middle > div:nth-child(1) {
             width: 180px;
         }
@@ -86,7 +86,7 @@
 
 <body>
 
-    <header>
+    <!-- <header>
         <h1>범준샘의 소프트웨어 공작실</h1>
         <nav>
             <ul>
@@ -97,14 +97,26 @@
                 <li>Shop</li>
             </ul>
         </nav>
-    </header>
+    </header> -->
 
     <br><br>
 
     <div class="container">
         <div class="header">
-            <h1>Hello world</h1>
-            <div></div>
+            <h1>박건도의 소프트웨어 공작실</h1>
+            <div>
+                <header>
+                <nav>
+                    <ul>
+                        <li>Home</li>
+                        <li>Profile</li>
+                        <li>Gallery</li>
+                        <li>Lecture</li>
+                        <li>Shop</li>
+                    </ul>
+                </nav>
+                </header>
+            </div>
         </div>
         <div class="middle">
             <div></div>
