@@ -1,0 +1,32 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!--cubic-bezier 속도 조절-->
+    <style>
+        input[name=input3]{
+            width: 100px;
+            padding: 10px;
+            transition: width .4s cubic-bezier(0,.94,1,-0.72);
+        }
+        input[name=input3]:focus {
+            background-color: pink;
+            width: 80vw;
+        }
+    </style>
+ </head>
+
+ <body>
+    <h1>HTML Form 스타일 설정</h1>
+
+    <from action="">
+        <fieldset>
+            <legend>기본정보</legend>
+            <input type="text" name="input3">
+        </fieldset>
+    </from>
+ </body>
+ </html>
