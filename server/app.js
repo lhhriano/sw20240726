@@ -59,20 +59,6 @@ app.get('/saram/edit', function(req, res) {
     });
 });
 
-// app.get('/saram/delete', function(req, res) {
-//     console.log("GET - /saram/delete >>>> no: " + req.query.no);
-//     var idx = saramList.findIndex(function(saram) {
-//         return saram.no == req.query.no;
-//     });
-//     var saram = null;
-//     if(idx != -1) {
-//         saram = saramList[idx];
-//     }
-//     req.app.render('saramEdit', {saram}, function(err, html) {
-//         res.end(html);
-//     });
-// });
-
 app.get('/saram/update', function(req, res) {
     console.log('GET - /saram/update >>>> no: ' + req.query.no);
     var idx = saramList.findIndex(function(saram) {

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
     <style>
         header {
             border: 0px solid gray;
@@ -23,7 +22,7 @@
             overflow: hidden;
             width: 600px;
         }
-        header ul li {
+        div ul li {
             width: 120px;
             height: 50px;
             border: 0px solid black;
@@ -36,79 +35,67 @@
         }
         nav {
             border-bottom: 1px solid red;
-            background-color: white;
         }
-        header ul li:hover {
+        div ul li:hover {
             border-bottom: 2px solid red;
             font-weight: bold;
             color: red;
         }
-        #main{
+        #main {
             width: 1000px;
             margin: auto;
-            height: 300vh;
+        }
+        #main div {
+            height: 100vh;
             text-align: center;
             border: 1px solid orange;
         }
-        #main div{
-            margin: auto;
-            height: 100vh;
-            text-align: center;
-            border: 1px solid blue;
-        }
-        #Gallery{
-            margin: auto;
-            text-align: center;
-        }
-        header.sticky {
+        div.sticky {
             position: -webkit-sticky;
             position: sticky;
             top: 0;
             padding: 5px;
+            background-color: white;
         }
-
-        </style>
-
-    <link rel="stylesheet" href="main2.css">
+    </style>
 </head>
 <body>
-    <div class="header">
-        <h1>임현효의 소프트웨어 공작실</h1>
-        <header class="sticky">
-            <nav>
-                <ul>
-                    <li><a href="#Home">Home</a></li>
-                    <li><a href="#Profile">Profile</a></li>
-                    <li><a href="">Gallery</a></li>
-                    <li><a href=".">Lecture</a></li>
-                    <li><a href=".">Shop</a></li>
-                </ul>
-            </nav>
-        </header>
-
-        <div id="main">
-            <div class="Gallery">
-                <div class="slider">
-                    <div class="slides">
-                      <div id="slide-1"><img src="Carousel/Carousel/img/1.png" alt=""></div>
-                      <div id="slide-2"><img src="Carousel/Carousel/img/2.png" alt=""></div>
-                      <div id="slide-3"><img src="Carousel/Carousel/img/3.png" alt=""></div>
-                    </div>
-                  
-                    <a href="#slide-1">1</a>
-                    <a href="#slide-2">2</a>
-                    <a href="#slide-3">3</a>
-                  </div>
-            </div>
-
-            <div class="Profile">
-                <!-- 자바 스프링부트
-                루비 시나트라
-                파이썬 플라스크
-                노드 익스프레스 -->
-            </div>
+    <header>
+        <h1>범준샘의 소프트웨어 공작실</h1>
+    </header>
+    <div class="sticky">
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#lecture">Lecture</a></li>
+                <li><a href="#shop">Shop</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div id="main">
+        <div id="home">
+            <br><br>
+            <h3>오신것을 환영합니다</h3>
+            <iframe src="Carousel/Carousel/index.html" width="610" height="400" frameborder="0"></iframe>
         </div>
-    
+        <div id="profile">
+            <br><br>
+            <h3>Profile</h3>
+        </div>
+        <div id="gallery">
+            <br><br>
+            <h3>Gallery</h3>
+        </div>
+        <div id="lecture">
+            <br><br>
+            <h3>Lecture</h3>
+        </div>
+        <div id="shop">
+            <br><br>
+            <h3>Shop</h3>
+        </div>
     </div>
 </body>
 </html>
