@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>form page</title>
+    <style>
+        input{padding-bottom:5px;}
+
+        .mainTb {
+            border: 1px solid black;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .mainTb tr th {
+            border: 1px solid black;
+        } 
+        .mainTb td {
+            border: 1px solid black;
+            vertical-align: top;
+            text-align: center;
+        }
+
+        .subTb tr td {
+            border-left: 0 solid black;
+            border-right: 0 solid black;
+            border-top: 0 solid black;
+            border-bottom: 1 solid black;
+        }
+
+        .tbUp{background-color: yellow;}
+
+    </style>
+</head>
+
+<body>
+    <div>
+        <form>
+            <label for="name"><span>이름 </span></label>
+            <input type="text" id="uname"><br/>
+            <label for="name"><span>부서 </span></label>
+            <input type="text" id="uname"><br/>
+            <label for="name"><span>직책 </span></label>
+            <input type="text" id="uname"><br/>
+            <label for="name"><span>사진 </span></label>
+            <input type="file" id="inFile"><br/>
+        </form>
+    </div>
+
+    <div>
+        <input type="checkbox" name="favorit" id="favorit" value="sw개발" checked> SW개발
+        <input type="checkbox" name="favorit" id="favorit" value="영업" checked> 영업
+        <input type="checkbox" name="favorit" id="favorit" value="독서"> 독서
+        <input type="checkbox" name="favorit" id="favorit" value="직업교육"> 직업교육
+    </div>
+    
+    <br/>
+    <button type="button">
+        <img src="빨간 버튼1.png" alt="빨간 버튼" onclick="alert('버튼이 클릭되었습니다')" >
+    </button>
+
+    <br/>
+    <br/>
+    <hr/>
+
+    <p>검색 <input type="text"> <button>검색</button></p>
+    <table class="mainTb">
+        <tr>
+            <td class="tbUp"><input type="checkbox"></input></td>
+            <td class="tbUp">번호</td>
+            <td class="tbUp">사진</td>
+            <td class="tbUp">사원명</td>
+            <td class="tbUp">부서</td>
+            <td class="tbUp">직급</td>
+            <td class="tbUp">수정</td>
+            <td class="tbUp">삭제</td>
+        </tr>
+
+        <tr>
+            <td rowspan="6"><input type="checkbox"></input></td>
+            <td rowspan="6">1043</td>
+            <td><img src="asdf.png" alt="풍경사진" width="200px" height="150px"></td>
+            <td>홍길동</td>
+            <td>개발</td>
+            <td vertical-align="top">대리</td>
+            <td rowspan="6" vertical-align="top"><button>Edit</button></td>
+            <td rowspan="6"><button>Delete</button></td>
+        </tr>
+
+        <tr>
+            <td colspan="4">
+            <div>
+                <table class="subTb" width="100%" cellspacing="0" >
+                    <tr>
+                        <td width="50px">번호</td>
+                        <td>댓글내용</td>
+                        <td>작성자</td>
+                        <td>수정</td>
+                        <td>수정</td>
+                    </tr>
+
+                    <tr>
+                        <td>1</td>
+                        <td>멋진 사진입니다.</td>
+                        <td>한상훈</td>
+                        <td>수정</td>
+                        <td>삭제</td>
+                    </tr>
+
+                    <tr>
+                        <td>2</td>
+                        <td>좋아요^^ 퍼가요~</td>
+                        <td>박건도</td>
+                        <td>수정</td>
+                        <td>삭제</td>
+                    </tr>
+                </table>
+            </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                댓글 <input type="text">
+                작성자 <input type="text">
+                <button>댓글입력</button>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
