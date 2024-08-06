@@ -11,8 +11,9 @@
         할일: <input type="text" class="title">
         <button id="saveBtn">SAVE</button>
     </p>
-    <ul class="resultArea">
-    </ul>
+    <p class="resultArea">
+        결과: 
+    </p>
 
     <script>
         // CSS 셀렉터를 이용해서 DOM 참조
@@ -25,23 +26,15 @@
         console.dir(saveBtn);
         // 버튼 이벤트 핸들러
         // 익명함수로 이벤트 핸들러 만들기
-
-        //단순 텍스트를 추가하는 형식을 list 태그로 변경
-        function append(){
-            var listArea = document.querySelector(".resultArea");
-            listArea.innerHTML += `<li>${title.value}</li>`
-            title.value="";
-            title.focus();
-        }
-
         saveBtn.onclick = function() {
-            append();
+            console.log("저장 버튼 눌렀다!", title.value);
+            document.querySelector(".resultArea").innerHTML += `<p>${title.value}</p>`;
         }
 
         // 키 이벤트 사용하기
         title.onkeydown = function(e) {
             if(e.keyCode === 13) {
-                append();
+                document.querySelector(".resultArea").innerHTML += `<p>${title.value}</p>` ;
             }
         }
     </script>
