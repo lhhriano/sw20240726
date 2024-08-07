@@ -13,7 +13,7 @@
 <body>
     <h1>Todo List</h1>
     <p>
-        할일: <input type="text" class="title">
+        할일: <input type="text" class="title" value="">
         <button id="saveBtn">SAVE</button>
     </p>
     <ul class="resultArea">
@@ -23,12 +23,11 @@
         var saveBtn = document.querySelector("#saveBtn");
         var title = document.querySelector(".title");
 
-        // 할 일 삭제 기능이 가능하도록 Array를 활용 한다.
         var todoList = [
-            {no:101, title:"hello", done:false},
-            {no:102, title:"hello2", done:true},
-            {no:103, title:"hello3", done:true},
-            {no:104, title:"hello4", done:false}
+            // {no:101, title:"hello", done:false},
+            // {no:102, title:"hello2", done:true},
+            // {no:103, title:"hello3", done:true},
+            // {no:104, title:"hello4", done:false}
         ];
         var todoSeq = 105;
 
@@ -93,11 +92,14 @@
         }
 
         saveBtn.onclick = function() {
+            console.log("버튼 클릭", title.value);
             append()
+            
         }
 
         title.onkeydown = function(e) {
             if(e.keyCode === 13) {
+                console.log("엔터 입력", title.value);
                 append();
             }
         }
