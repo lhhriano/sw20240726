@@ -18,6 +18,7 @@
         var saveBtn = document.querySelector("#saveBtn");
         var title = document.querySelector(".title");
 
+        // 할 일 삭제 기능이 가능하도록 Array를 활용 한다.
         var todoList = [
             {no:101, title:"hello", done:false},
             {no:102, title:"hello2", done:false},
@@ -25,37 +26,44 @@
             {no:104, title:"hello4", done:false}
         ];
         var todoSeq = 105;
+
+        function createLiTag(listArea, todo) {
+            var liTag = document.createElement("li");
+            var checkBox = document.createElement("input");
+            var delBtn = document.createElement("button");
+            var spanTag = document.createElement("span");
+
+            liTag.style.listStyle = "none";
+            checkBox.setAttribute("type", "checkbox");
+            spanTag.innerHTML = todo.title + " ";
+            delBtn.innerText = "Delete";
+            delBtn.addEventListener('click', function(event) {
+                var idx = todoList.findIndex(function(t) {
+                    return t.no === todo.no
+                });
+                if(idx != -1) {
+                    todoList.splice(idx, 1);
+                    drawList();
+                }
+            });
+
+            liTag.appendChild(checkBox);
+            liTag.appendChild(spanTag);
+            liTag.appendChild(delBtn);
+            listArea.appendChild(liTag);
+        } // End of createLiTag
+
         function drawList() {
             var listArea = document.querySelector(".resultArea");
             listArea.innerHTML = "";
             todoList.forEach(function(todo) {
-                var liTag = document.createElement("li");
-                var checkBox = document.createElement("input");
-                var delBtn = document.createElement("button");
-                var spanTag = document.createElement("span");
-
-                liTag.style.listStyle = "none";
-                checkBox.setAttribute("type", "checkbox");
-                spanTag.innerHTML = todo.title + " ";
-                delBtn.innerText = "Delete";
-                delBtn.addEventListener('click', function(event) {
-                    var idx = todoList.findIndex(function(t) {
-                        return t.no === todo.no
-                    });
-                    if(idx != -1) {
-                        todoList.splice(idx, 1);
-                        drawList();
-                    }
-                });
-
-                liTag.appendChild(checkBox);
-                liTag.appendChild(spanTag);
-                liTag.appendChild(delBtn);
-                listArea.appendChild(liTag);
+                createLiTag(listArea, todo);
             });
         }
+        // 최초 호출
         drawList();
 
+        // Array에 새 할 일 추가
         function append() {
             todoList.push({
                 no:todoSeq++, title:title.value, done:false
