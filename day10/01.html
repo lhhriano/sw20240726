@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        
+        $("p").hide();
+
+        $("button:nth(0)").click(function(){
+            $("p").show();
+            $("p:nth(0)").text("이름: 기무라 바쿠건도");
+            $("p:nth(1)").text("나이: 123");
+            $("p:nth(2)").text("정통 최고 아웃풋, 정통 1등");
+        });
+
+        $("button:nth(1)").click(function(){
+            $("p").show();
+            $("p:nth(0)").text("이름: 한상훈");
+            $("p:nth(1)").text("나이: 234");
+            $("p:nth(2)").text("안동대 최고 아웃풋, 약코의 신");
+        });
+
+        $("button:nth(2)").click(function(){
+            $("p").show();
+            $("p:nth(0)").text("이름: 임현효");
+            $("p:nth(1)").text("나이: 12");
+            $("p:nth(2)").text("범부");
+        });
+
+        // $("button:nth(1)").click(function(){
+        //     $("p").show(600);
+        //     $("body").css({backgroundColor: "orange"});
+        //     // jQuery객체를 DOM으로 변경해서 사용
+        //     $("p:nth(1)")[0].innerText = "환영합니다!";
+        //     // jQuery의 text() 또는 html() 메서드 사용
+        //     $("p:nth(0)").text("즐겁게 코딩하자");
+        //     // 메서드 체인
+        //     $("p:nth(2)").text("Hello world")
+        //         .css({
+        //             color: "green",
+        //             backgroundColor: "yellow"
+        //         }).on('click',function() {
+        //             alert(this.innerText);
+        //             $(this).off('click');
+        //         });
+        // });
+
+    });
+    </script>
+</head>
+<body>
+    <h2>jQuery 예제</h2>
+    
+    <button>박건도</button>
+    <button>한상훈</button>
+    <button>임현효</button>
+    
+    <p></p>
+    <p></p>
+    <p></p>
+</body>
+</html>
