@@ -41,8 +41,22 @@
             <li>밥 하기</li>
         </ul>
     </div>
+
+<!-- 
+- **`text()`** 메서드를 사용하여 요소의 텍스트 내용을 변경 (`innerText` 속성)
+- **`html()`** 메서드를 사용하여 요소의 HTML 내용을 변경 (`innerHTML` 속성)
+- **`attr()`** 메서드를 사용하여 요소의 속성 값을 가져오거나 설정 (`setAttribute()` 메서드)
+- **`val()`** 메서들 이용해서 input 요소의 값을 가져오거나 설정 (`value` 속성)
+- **`css()`** 메서드를 사용해서 요소의 스타일을 설정하거나 값을 가져온다(style 속성)
+-->
 <script>
-    $(document).ready(function() {
+    // head태그 아래에 있어도 jQuery진입점을 쓰는것이 좋다.
+    // ready()는 DOM 트리의 구조만 로드되어도 바로 실행 됨.
+    jQuery(document).ready(function() {
+        
+        // **`on()`** 메서드를 사용하여 이벤트를 등록
+        // 또는 **`bind()`** 메서드를 사용하여 이벤트를 등록
+        // **`click()`**, **`change()`**, **`keydown()`** 등
         //$('#transKorBtn').on('click', function(event) {
         //$('#transKorBtn').bind('click', function(event) {
         $('#transKorBtn').click(function(event) {
@@ -72,7 +86,7 @@
             $(".todoList").toggle('slow'); // slow, fast, 300
         });
 
-        // 클래스 적용 메서드 연습
+        // 클래스 적용 메서드 연습 
         $('#addClassBtn').click(function(event) {
             $('.todoList li').addClass('redColor');
         });
