@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <title>jsDragAndDrop.html</title>
     <style>
-        .btn {
+        .btn, .box {
             position: absolute;
             box-sizing: border-box;
+            border: 1px solid black;
+        }
+        .btn {
+            background-color: red;
         }
     </style>
     <script>
@@ -17,17 +21,12 @@
             }
         }
 
+        // 박스 클래스
         class MakeBox {
             constructor(cssValue) {
                 this.div = document.createElement('div');
-                setStyles(this.div, {
-                    position: 'absolute',
-                    border: '1px solid black',
-                    left: cssValue.left,
-                    top: cssValue.top,
-                    width: cssValue.width,
-                    height: cssValue.height
-                });
+                this.div.className = 'box';
+                setStyles(this.div, cssValue);
                 document.body.appendChild(this.div);
                 if (!window.boxArr) {
                     window.boxArr = [];
@@ -36,21 +35,14 @@
             }
         }
 
+        // 버튼 클래스
         class MakeBtn {
             constructor(values) {
                 this.btn = document.createElement('button');
                 this.btn.className = 'btn';
-                document.body.appendChild(this.btn);
-
-                setStyles(this.btn, {
-                    backgroundColor: values.color,
-                    left: values.left,
-                    top: values.top,
-                    width: values.width,
-                    height: values.height
-                });
-
+                setStyles(this.btn, values);
                 this.btn.innerHTML = values.text;
+                document.body.appendChild(this.btn);
 
                 this.btn.addEventListener('mousedown', this.onMouseDown.bind(this));
                 thisTarget = null;
@@ -90,11 +82,11 @@
                 );
 
                 if (idx !== -1) {
-                    console.log(`${idx}번째 box에 걸쳤습니다.`);
                     thisTarget.style.left = `${boxPointArr[idx].x1 + 1}px`;
                     thisTarget.style.top = `${boxPointArr[idx].y1 + 1}px`;
                 } else {
-                    console.log('box안에 없습니다.');
+                    thisTarget.style.left = `${thisTarget.x}px`;
+                    thisTarget.style.top = `${thisTarget.y}px`;
                 }
 
                 document.onmousemove = null;
@@ -105,21 +97,23 @@
         window.onload = () => {
             new MakeBtn({
                 text: 'HELLO',
-                color: 'red',
                 left: '200px',
                 top: '200px',
                 width: '100px',
                 height: '100px'
             });
 
-            new MakeBox({ left: '10px', top: '10px', width: '100px', height: '100px' });
-            new MakeBox({ left: '120px', top: '10px', width: '100px', height: '100px' });
-            new MakeBox({ left: '230px', top: '10px', width: '100px', height: '100px' });
-            new MakeBox({ left: '340px', top: '10px', width: '100px', height: '100px' });
+            const boxPositions = [
+                { left: '10px', top: '10px', width: '100px', height: '100px' },
+                { left: '120px', top: '10px', width: '100px', height: '100px' },
+                { left: '230px', top: '10px', width: '100px', height: '100px' },
+                { left: '340px', top: '10px', width: '100px', height: '100px' }
+            ];
+
+            boxPositions.forEach(position => new MakeBox(position));
         };
     </script>
 </head>
 <body>
-    
 </body>
 </html>
