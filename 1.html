@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsDragAndDrop.html</title>
+<script>
+    // MakeBox 생성자 함수: 주어진 CSS 값을 사용하여 박스를 생성
+    function MakeBox(cssValue) {
+        
+        // 새로운 div 요소를 생성
+        this.div = document.createElement('div');
+        // 스타일 설정
+        this.div.style.position = "absolute";  // 절대 위치 설정
+        this.div.style.border = "1px solid black";  // 검은색 테두리 설정
+        this.div.style.left = cssValue.left;  // 왼쪽 위치 설정
+        this.div.style.top = cssValue.top;  // 상단 위치 설정
+        this.div.style.width = cssValue.width;  // 너비 설정
+        this.div.style.height = cssValue.height;  // 높이 설정
+
+        // 생성한 div 요소를 문서의 body에 추가
+        document.body.appendChild(this.div);
+        // 전역 boxArr 배열이 없으면 새 배열로 초기화
+        if(window.boxArr == null) {
+            window.boxArr = new Array();
+        }
+        // 생성한 div 요소를 boxArr 배열에 추가
+        boxArr.push(this.div);
+    };
+
+    // MakeBtn 생성자 함수: 주어진 값을 사용하여 버튼을 생성하고 드래그 앤 드롭 기능을 추가
+    function MakeBtn(values) {
+
+        // 새로운 button 요소를 생성
+        this.btn = document.createElement('button');
+        this.btn.className = 'btn';  // 클래스명 설정
+        document.body.appendChild(this.btn);  // 생성한 button 요소를 문서의 body에 추가
+
+        // 스타일 설정
+        this.btn.innerHTML = values.text;  // 버튼 텍스트 설정
+        this.btn.style.position = 'absolute';  // 절대 위치 설정
+        this.btn.style.boxSizing = 'borderBox';  // 박스 사이징 설정
+        this.btn.style.backgroundColor = values.color;  // 배경색 설정
+        this.btn.style.left = values.left;  // 왼쪽 위치 설정
+        this.btn.style.top = values.top;  // 상단 위치 설정
+        this.btn.style.width = values.width;  // 너비 설정
+        this.btn.style.height = values.height;  // 높이 설정
+
+        // 이벤트 설정
+        var thisTarget = null;  // 현재 타겟을 저장할 변수
+        window.zIndex = 1;  // 전역 zIndex 변수 초기화
+
+        // boxPoint 생성자 함수: 박스의 좌표를 저장
+        function boxPoint(x1,y1,x2,y2) {
+            this.x1 = x1;
+            this.y1 = y1;
+            this.x2 = x2;
+            this.y2 = y2;
+        }
+
+        // 버튼을 누를 때 발생하는 이벤트 핸들러
+        this.btn.onmousedown = function(evt) {
+            console.log(boxArr);
+            var boxPointArr = new Array();  // 박스 좌표를 저장할 배열
+
+            // 모든 박스의 좌표를 계산하여 배열에 저장
+            for(var i=0; i<boxArr.length; i++) {
+                var x1 = boxArr[i].offsetLeft;
+                var y1 = boxArr[i].offsetTop;
+                var x2 = x1 + boxArr[i].offsetWidth;
+                var y2 = y1 + boxArr[i].offsetHeight;
+                boxPointArr.push(new boxPoint(x1,y1,x2,y2));
+            }
+            
+            thisTarget = this;  // 현재 버튼을 타겟으로 설정
+            thisTarget.x = thisTarget.offsetLeft;  // 버튼의 초기 x 위치 저장
+            thisTarget.y = thisTarget.offsetTop;  // 버튼의 초기 y 위치 저장
+            this.style.zIndex = window.zIndex;  // 버튼의 z-index 설정
+            window.zIndex += 1;  // zIndex 증가
+            thisTarget.xGap = event.clientX - event.target.offsetLeft;  // 마우스 클릭 지점과 버튼의 x 위치 차이 계산
+            thisTarget.yGap = event.clientY - event.target.offsetTop;  // 마우스 클릭 지점과 버튼의 y 위치 차이 계산
+
+            // 마우스를 움직일 때 발생하는 이벤트 핸들러
+            document.onmousemove = function() {
+                thisTarget.style.left = event.clientX-thisTarget.xGap + "px";  // 버튼의 x 위치 업데이트
+                thisTarget.style.top = event.clientY-thisTarget.yGap + "px";  // 버튼의 y 위치 업데이트
+            };
+
+            // 마우스 버튼을 놓을 때 발생하는 이벤트 핸들러
+            document.onmouseup = function() {
+                var x1 = thisTarget.offsetLeft + thisTarget.offsetWidth/2;  // 버튼 중앙의 x 좌표 계산
+                var y1 = thisTarget.offsetTop + thisTarget.offsetHeight/2;  // 버튼 중앙의 y 좌표 계산
+                var idx = -1;  // 박스 인덱스 초기화
+
+                // 모든 박스 좌표를 검사하여 버튼이 박스 내부에 있는지 확인
+                for(var i=0; i<boxPointArr.length; i++) {
+                    var p = boxPointArr[i];
+                    var b1 = (x1>=p.x1&&x1<=p.x2)&&(y1>=p.y1&&y1<=p.y2);
+                    if(b1) {
+                        idx = i;
+                    }
+                }
+
+                // 버튼이 박스 내부에 있으면 해당 박스의 좌표로 버튼 위치 설정
+                if(idx != -1){
+                    console.log(idx+"번째 box에 걸쳤습니다.");
+                    console.log("x=> " + boxPointArr[idx].x1);
+                    thisTarget.style.left = boxPointArr[idx].x1+1 + "px";
+                    thisTarget.style.top = boxPointArr[idx].y1+1 + "px";
+                } else {
+                    console.log("box안에 없습니다.");
+                    // 버튼이 박스 내부에 없으면 원래 위치로 되돌리기
+                    //thisTarget.style.left = thisTarget.x + "px";
+                    //thisTarget.style.top = thisTarget.y + "px";
+                }
+
+                document.onmousemove = null;  // 마우스 이동 이벤트 해제
+            };
+        };
+    };
+
+    // 문서가 로드될 때 실행되는 함수
+    window.onload = function() {
+        // 새로운 버튼 생성
+        new MakeBtn({'text':'Sanghun',
+                    'color':'green',
+                    'left':'10px',
+                    'top':'120px',
+                    'width':'100px',
+                    'height':'100px'});
+
+        new MakeBtn({'text':'Gundo',
+                    'color':'red',
+                    'left':'120px',
+                    'top':'120px',
+                    'width':'100px',
+                    'height':'100px'});
+        
+        // 새로운 박스 생성
+        new MakeBox({'left':'10px',
+                    'top':'10px',
+                    'width':'100px',
+                    'height':'100px'});
+
+        new MakeBox({'left':'120px',
+                    'top':'10px',
+                    'width':'100px',
+                    'height':'100px'});
+
+        new MakeBox({'left':'230px',
+                    'top':'10px',
+                    'width':'100px',
+                    'height':'100px'});
+
+        // 새로운 박스 하나 더 생성
+        new MakeBox({'left':'340px',
+                    'top':'10px',
+                    'width':'100px',
+                    'height':'100px'});
+    };
+</script>
+</head>
+<body>
+    
+</body>
+</html>

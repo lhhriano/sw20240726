@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsDragAndDrop.html</title>
+    <style>
+        .btn {
+            position: absolute;
+            box-sizing: border-box;
+        }
+    </style>
+    <script>
+        // 공통 스타일 설정 함수
+        function setStyles(element, styles) {
+            for (let property in styles) {
+                element.style[property] = styles[property];
+            }
+        }
+
+        class MakeBox {
+            constructor(cssValue) {
+                this.div = document.createElement('div');
+                setStyles(this.div, {
+                    position: 'absolute',
+                    border: '1px solid black',
+                    left: cssValue.left,
+                    top: cssValue.top,
+                    width: cssValue.width,
+                    height: cssValue.height
+                });
+                document.body.appendChild(this.div);
+                if (!window.boxArr) {
+                    window.boxArr = [];
+                }
+                boxArr.push(this.div);
+            }
+        }
+
+        class MakeBtn {
+            constructor(values) {
+                this.btn = document.createElement('button');
+                this.btn.className = 'btn';
+                document.body.appendChild(this.btn);
+
+                setStyles(this.btn, {
+                    backgroundColor: values.color,
+                    left: values.left,
+                    top: values.top,
+                    width: values.width,
+                    height: values.height
+                });
+
+                this.btn.innerHTML = values.text;
+
+                this.btn.addEventListener('mousedown', this.onMouseDown.bind(this));
+                thisTarget = null;
+                window.zIndex = 1;
+            }
+
+            onMouseDown(event) {
+                const boxPointArr = boxArr.map(box => ({
+                    x1: box.offsetLeft,
+                    y1: box.offsetTop,
+                    x2: box.offsetLeft + box.offsetWidth,
+                    y2: box.offsetTop + box.offsetHeight
+                }));
+
+                thisTarget = this.btn;
+                thisTarget.x = thisTarget.offsetLeft;
+                thisTarget.y = thisTarget.offsetTop;
+                thisTarget.style.zIndex = window.zIndex++;
+                thisTarget.xGap = event.clientX - thisTarget.offsetLeft;
+                thisTarget.yGap = event.clientY - thisTarget.offsetTop;
+
+                document.onmousemove = this.onMouseMove.bind(this);
+                document.onmouseup = this.onMouseUp.bind(this, boxPointArr);
+            }
+
+            onMouseMove(event) {
+                thisTarget.style.left = `${event.clientX - thisTarget.xGap}px`;
+                thisTarget.style.top = `${event.clientY - thisTarget.yGap}px`;
+            }
+
+            onMouseUp(boxPointArr) {
+                const x1 = thisTarget.offsetLeft + thisTarget.offsetWidth / 2;
+                const y1 = thisTarget.offsetTop + thisTarget.offsetHeight / 2;
+
+                const idx = boxPointArr.findIndex(p =>
+                    x1 >= p.x1 && x1 <= p.x2 && y1 >= p.y1 && y1 <= p.y2
+                );
+
+                if (idx !== -1) {
+                    console.log(`${idx}번째 box에 걸쳤습니다.`);
+                    thisTarget.style.left = `${boxPointArr[idx].x1 + 1}px`;
+                    thisTarget.style.top = `${boxPointArr[idx].y1 + 1}px`;
+                } else {
+                    console.log('box안에 없습니다.');
+                }
+
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
+
+        window.onload = () => {
+            new MakeBtn({
+                text: 'HELLO',
+                color: 'red',
+                left: '200px',
+                top: '200px',
+                width: '100px',
+                height: '100px'
+            });
+
+            new MakeBox({ left: '10px', top: '10px', width: '100px', height: '100px' });
+            new MakeBox({ left: '120px', top: '10px', width: '100px', height: '100px' });
+            new MakeBox({ left: '230px', top: '10px', width: '100px', height: '100px' });
+            new MakeBox({ left: '340px', top: '10px', width: '100px', height: '100px' });
+        };
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
