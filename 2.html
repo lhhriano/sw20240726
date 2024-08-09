@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsDragAndDrop.html</title>
+    <style>
+        .btn, .box {
+            position: absolute;
+            box-sizing: border-box;
+            border: 1px solid black;
+        }
+        .btn {
+            background-color: red;
+        }
+    </style>
+    <script>
+        // 공통 스타일 설정 함수
+        function setStyles(element, styles) {
+            for (let property in styles) {
+                element.style[property] = styles[property];
+            }
+        }
+
+        // 박스 클래스
+        class MakeBox {
+            constructor(cssValue) {
+                this.div = document.createElement('div');
+                this.div.className = 'box';
+                setStyles(this.div, cssValue);
+                document.body.appendChild(this.div);
+                if (!window.boxArr) {
+                    window.boxArr = [];
+                }
+                boxArr.push(this.div);
+            }
+        }
+
+        // 버튼 클래스
+        class MakeBtn {
+            constructor(values) {
+                this.btn = document.createElement('button');
+                this.btn.className = 'btn';
+                setStyles(this.btn, values);
+                this.btn.innerHTML = values.text;
+                document.body.appendChild(this.btn);
+
+                this.btn.addEventListener('mousedown', this.onMouseDown.bind(this));
+                thisTarget = null;
+                window.zIndex = 1;
+            }
+
+            onMouseDown(event) {
+                const boxPointArr = boxArr.map(box => ({
+                    x1: box.offsetLeft,
+                    y1: box.offsetTop,
+                    x2: box.offsetLeft + box.offsetWidth,
+                    y2: box.offsetTop + box.offsetHeight
+                }));
+
+                thisTarget = this.btn;
+                thisTarget.x = thisTarget.offsetLeft;
+                thisTarget.y = thisTarget.offsetTop;
+                thisTarget.style.zIndex = window.zIndex++;
+                thisTarget.xGap = event.clientX - thisTarget.offsetLeft;
+                thisTarget.yGap = event.clientY - thisTarget.offsetTop;
+
+                document.onmousemove = this.onMouseMove.bind(this);
+                document.onmouseup = this.onMouseUp.bind(this, boxPointArr);
+            }
+
+            onMouseMove(event) {
+                thisTarget.style.left = `${event.clientX - thisTarget.xGap}px`;
+                thisTarget.style.top = `${event.clientY - thisTarget.yGap}px`;
+            }
+
+            onMouseUp(boxPointArr) {
+                const x1 = thisTarget.offsetLeft + thisTarget.offsetWidth / 2;
+                const y1 = thisTarget.offsetTop + thisTarget.offsetHeight / 2;
+
+                const idx = boxPointArr.findIndex(p =>
+                    x1 >= p.x1 && x1 <= p.x2 && y1 >= p.y1 && y1 <= p.y2
+                );
+
+                if (idx !== -1) {
+                    thisTarget.style.left = `${boxPointArr[idx].x1 + 1}px`;
+                    thisTarget.style.top = `${boxPointArr[idx].y1 + 1}px`;
+                } else {
+                    thisTarget.style.left = `${thisTarget.x}px`;
+                    thisTarget.style.top = `${thisTarget.y}px`;
+                }
+
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
+
+        window.onload = () => {
+            new MakeBtn({
+                text: 'HELLO',
+                left: '200px',
+                top: '200px',
+                width: '100px',
+                height: '100px'
+            });
+
+            const boxPositions = [
+                { left: '10px', top: '10px', width: '100px', height: '100px' },
+                { left: '120px', top: '10px', width: '100px', height: '100px' },
+                { left: '230px', top: '10px', width: '100px', height: '100px' },
+                { left: '340px', top: '10px', width: '100px', height: '100px' }
+            ];
+
+            boxPositions.forEach(position => new MakeBox(position));
+        };
+    </script>
+</head>
+<body>
+</body>
+</html>
